@@ -1,11 +1,27 @@
-import {Router} from 'express';
-import { getAsignaciones } from '../controllers/Asignaciones.controller.js';
-import { createAsignacion } from '../controllers/Asignaciones.controller.js';       
-const router = Router()
-router.get('/asignaciones', getAsignaciones);
-router.post('/asignaciones', createAsignacion);
-router.put('/asignaciones/:id');
-router.delete('/asignaciones/:id');
-router.get('/asignaciones/id:');
+import express from 'express';
+import {
+  getAsignaciones,
+  createAsignacion,
+  getAsignacionById,
+  updateAsignacion,
+  deleteAsignacion
+} from '../controllers/Asignaciones.controller.js';
 
-export default router
+const router = express.Router();
+
+// Ruta para obtener todas las asignaciones
+router.get('/asignaciones', getAsignaciones);
+
+// Ruta para crear una nueva asignación
+router.post('/asignaciones', createAsignacion);
+
+// Ruta para obtener una asignación por su ID
+router.get('/asignaciones/:id', getAsignacionById);
+
+// Ruta para actualizar una asignación
+router.put('/asignaciones/:id', updateAsignacion);
+
+// Ruta para eliminar una asignación
+router.delete('asignaciones/:id', deleteAsignacion);
+
+export default router;

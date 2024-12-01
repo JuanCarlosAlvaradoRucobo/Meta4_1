@@ -1,5 +1,4 @@
 <template>
-  <AppBar />
 
   <v-main class="pa-0">
     <v-container>
@@ -13,11 +12,11 @@
         <v-col cols="12" md="6">
           <v-card class="mx-auto pa-4" max-width="800">
             <v-card-title class="text-h5 mb-4">
-              Bienvenido
+              Portal de Alumnos
             </v-card-title>
             <v-card-text> 
               <p class="text-body-1">
-                Bienvenido al Sistema Escolar de la Universidad de Baja California - UABC.                
+               Favor de registrarse.             
               </p>              
             </v-card-text>
             <v-card-actions>
@@ -29,7 +28,6 @@
     </v-container>
   </v-main>   
   
-  <AppFooter />
 </template>
 
 <script setup>

@@ -1,33 +1,28 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../databases/database.js'; // Ajusta la ruta según tu estructura de archivos
-import Inscripciones from './inscripciones.js';
-import Asignaciones from './asignaciones.js';
+import Maestro from '../modelos/Maestro.js'; // Asegúrate de importar Maestro
+import Horario from '../modelos/Horario.js'; // Asegúrate de importar Horario
+import Inscripciones from '../modelos/inscripciones.js';
+import Asignaciones from '../modelos/asignaciones.js';
+
 const Curso = sequelize.define('Curso', {
     numeroSerie: {
         type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
     claveMateria: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        unique: true
     },
     nombreMateria: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
     creditos: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         defaultValue: 0,
         validate: {
             min: 0
@@ -36,10 +31,9 @@ const Curso = sequelize.define('Curso', {
     tipo: {
         type: DataTypes.ENUM('obligatorio', 'optativo'),
         defaultValue: 'obligatorio',
-        allowNull: false,
-
+        allowNull: false
     },
-    Departamento: {
+    departamento: {
         type: DataTypes.STRING,
         allowNull: false
     }
@@ -49,28 +43,4 @@ const Curso = sequelize.define('Curso', {
     updatedAt: 'ultima_actualizacion'
 });
 
-Curso.hasMany(Inscripciones, 
-    { foreignKey: 'numeroserie_curso',
-        sourceKey: 'numeroSerie' 
-
-    });
-
-Inscripciones.belongsTo(Curso, 
-    { 
-    foreignKey: 'numeroserie_curso',
-    targetKey: 'numeroSerie'
- });
-
-
- Curso.hasMany(Asignaciones, 
-    { foreignKey: 'numeroserie_curso',
-        sourceKey: 'numeroSerie' 
-
-    });
-
-Asignaciones.belongsTo(Curso, 
-    { 
-    foreignKey: 'numeroserie_curso',
-    targetKey: 'numeroSerie'
- });
 export default Curso;

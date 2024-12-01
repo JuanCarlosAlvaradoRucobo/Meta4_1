@@ -1,29 +1,20 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../databases/database.js'; // Ajusta la ruta según tu estructura de archivos
 import Asignaciones from './asignaciones.js';
+// Maestro.js
 const Maestro = sequelize.define('Maestro', {
     no_empleado: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         primaryKey: true,
-        allowNull: false,
-        validate: {
-            notEmpty: true,
-            len: [1, 10]
-        }
+        allowNull: false
     },
     nombre: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
     apellido_paterno: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
     apellido_materno: {
         type: DataTypes.STRING,
@@ -31,8 +22,7 @@ const Maestro = sequelize.define('Maestro', {
     },
     grado: {
         type: DataTypes.STRING,
-        allowNull: false,
-
+        allowNull: false
     },
     estado: {
         type: DataTypes.ENUM('activo', 'inactivo'),
@@ -45,16 +35,5 @@ const Maestro = sequelize.define('Maestro', {
     updatedAt: 'ultima_actualizacion'
 });
 
-Maestro.hasMany(Asignaciones, 
-    { foreignKey: 'no_empleado_maestro',
-        sourceKey: 'no_empleado' 
-
-    });
-
-Asignaciones.belongsTo(Maestro, 
-    { 
-    foreignKey: 'no_empleado_maestro',
-    targetKey: 'no_empleado'
- });
 
 export default Maestro;

@@ -1,58 +1,41 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../databases/database.js'; // Ajusta la ruta según tu estructura de archivos
-import Asignaciones from './asignaciones.js';
+import Asignaciones from './asignaciones.js'; // Asegúrate de que la ruta sea correcta
+import Curso from './Curso.js'; // Asegúrate de que la ruta sea correcta
 const Horario = sequelize.define('Horario', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        Auto_increment: true
+        autoIncrement: true
     },
     dia: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        type: DataTypes.ENUM('lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'),
+        allowNull: false
     },
     hora_inicio: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        type: DataTypes.TIME,
+        allowNull: false
     },
     hora_fin: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.TIME,
+        allowNull: false
     },
     aula: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        allowNull: false
     },
-    periodo_academico: {
+    numeroserie_curso: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            notEmpty: true
+        references: {
+            model: 'Curso',
+            key: 'numeroSerie'
         }
-    },
-    estado: {
-        type: DataTypes.ENUM('activo', 'inactivo'),
-        defaultValue: 'activo',
-        allowNull: false
     }
 }, {
     timestamps: true,
     createdAt: 'fecha_registro',
     updatedAt: 'ultima_actualizacion'
 });
-
-Horario.hasMany(Asignaciones, { foreignKey: 'horario_id', sourceKey: 'id' });
-
-Asignaciones.belongsTo(Horario, { foreignKey: 'horario_id', targetKey: 'id' });
 
 export default Horario;

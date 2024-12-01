@@ -1,15 +1,14 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../databases/database.js'; // Ajusta la ruta según tu estructura de archivos
-import Inscripciones from './inscripciones.js';
+import sequelize from '../databases/database.js';
+import Inscripciones from '../modelos/inscripciones.js';
 
 export const Alumno = sequelize.define('Alumno', {
     matricula: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(10),
         primaryKey: true,
         allowNull: false,
         validate: {
-            notEmpty: true,
-            len: [1, 10]
+            notEmpty: true
         }
     },
     nombre: {
@@ -21,7 +20,7 @@ export const Alumno = sequelize.define('Alumno', {
     },
     apellido_paterno: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     apellido_materno: {
         type: DataTypes.STRING,
@@ -54,14 +53,5 @@ export const Alumno = sequelize.define('Alumno', {
     updatedAt: 'ultima_actualizacion'
 });
 
-
-Alumno.hasMany(Inscripciones, {
-    foreignKey: 'matricula_alumno',
-    sourceKey: 'matricula'
-});
-
-Inscripciones.belongsTo(Alumno, {
-    foreignKey: 'matricula_alumno',
-    targetKey: 'matricula'
-});
+export default Alumno;
 

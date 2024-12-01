@@ -100,4 +100,3 @@ export const getAlumnoByMatricula = async (req, res) => {
         res.status(500).json({ message: `Error al obtener el alumno: ${error.message}` });
     }
 };
-

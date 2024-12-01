@@ -1,29 +1,20 @@
 import dotenv from 'dotenv';
 import app from './app.js';
 import sequelize from './databases/database.js';
-import VerificacionToken from '../VerificacionToken.js';
+import VerificacionToken from './VerificacionToken.js';
 import cors from 'cors';
 
-dotenv.config();
+//dotenv.config();
 
-const corsOptions = {
-  origin: ['http://localhost:8080', 'https://accounts.google.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: [
-    'Content-Type', 
-    'Authorization', 
-    'Origin', 
-    'X-Requested-With',
-    'Accept'
-  ],
-  credentials: true,
-  optionsSuccessStatus: 204
-};
+// Configurar CORS
+app.use(cors({
+    origin: 'http://localhost:3000/', // Permitir solo este origen
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'] // Encabezados permitidos
+}));
 
-app.use(cors(corsOptions));
-
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "453365147539-lu4djoosnqbm62vtjtgq9cgbgve7q1cb.apps.googleusercontent.com";
-const PORT = process.env.PORT || 3001;
+const GOOGLE_CLIENT_ID = "453365147539-lu4djoosnqbm62vtjtgq9cgbgve7q1cb.apps.googleusercontent.com";
+const PORT = 3001;
 
 async function main() {
   try {

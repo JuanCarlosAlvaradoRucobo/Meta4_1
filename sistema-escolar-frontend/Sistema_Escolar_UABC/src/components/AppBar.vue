@@ -28,9 +28,9 @@
   const drawer = ref(false)
   const menuItems = ref([
     {
-      title: 'Dashboard',
+      title: 'inicio',
       icon: 'mdi-view-dashboard',
-      path: '/'
+      path: '/inicio'
     },
     {
       title: 'Estudiantes',
@@ -46,6 +46,11 @@
       title: 'Maestros',
       icon: 'mdi-clipboard-text',
       path: '/maestros'
+    },
+    {
+      title: 'Asignaciones',
+      icon: 'mdi-connection',
+      path: '/AsignacionesPages'
     }
   ])
   

@@ -1,25 +1,26 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../databases/database.js'; // Ajusta la ruta según tu estructura de archivos
+import sequelize from '../databases/database.js';
+import Curso from '../modelos/Curso.js'; // Asegúrate de importar Curso
+import Alumno from '../modelos/Alumnos.js';
 
 const Inscripciones = sequelize.define('Inscripciones', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        autoIncrement: true
     },
     fecha_inscripcion: {
-        type: DataTypes.STRING,
-        allowNull: true
+        type: DataTypes.DATE,  // Cambiado a DATE en lugar de STRING
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
     oportunidad: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        defaultValue: 40,
+        defaultValue: 1,
         validate: {
-            min: 10
+            min: 1,
+            max: 3
         }
     },
     calificacion: {
@@ -35,13 +36,27 @@ const Inscripciones = sequelize.define('Inscripciones', {
         type: DataTypes.ENUM('cursando', 'reprobado', 'aprobado'),
         defaultValue: 'cursando',
         allowNull: false
-    }
+    },
+    matricula_alumno: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'Alumnos',
+            key: 'matricula'
+        }
+    },
+    numeroserie_curso: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: 'Curso',
+            key: 'numeroSerie'
+        }
+    },
 }, {
     timestamps: true,
     createdAt: 'fecha_registro',
     updatedAt: 'ultima_actualizacion'
 });
-
-
 
 export default Inscripciones;

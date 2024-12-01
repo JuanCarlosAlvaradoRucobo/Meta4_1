@@ -9,31 +9,16 @@ export const getMaestros = async (req, res) => {
     }
 };
 export const createMaestro = async (req, res) => {
+    console.log(req.body); // Log de datos recibidos
     try {
-        const {
-            no_empleado,
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            grado,
-            estado
-        } = req.body;
-
-        // Crear el nuevo curso con los datos proporcionados
-        const newMaestro = await Maestro.create({
-            no_empleado,
-            nombre,
-            apellido_paterno,
-            apellido_materno,
-            grado,
-            estado
-        });
-
+        const newMaestro = await Maestro.create(req.body);
         res.status(201).json(newMaestro);
     } catch (error) {
+        console.error(error);
         res.status(400).json({ message: error.message });
     }
 };
+
 
 export const getMaestro = async (req, res) => {
     try {
